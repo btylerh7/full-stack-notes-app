@@ -1,0 +1,21 @@
+{
+  "name": "full-stack-notes-app",
+  "version": "1.0.0",
+  "description": "A simple full stack notes app using react on the front end and mongodb, express, and node on the back end.",
+  "main": "index.js",
+  "repository": "https://github.com/btylerh7/full-stack-notes-app.git",
+  "author": "robustjumprope <91493312+robustjumprope@users.noreply.github.com>",
+  "license": "MIT",
+  "scripts": {
+    "server": "nodemon backend/server.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "express": "^4.17.2",
+    "express-async-handler": "^1.2.0",
+    "mongoose": "^6.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
