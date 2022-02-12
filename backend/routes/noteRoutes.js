@@ -1,10 +1,12 @@
 const express = require('express')
 const router = express.Router()
-const {getAllNotes,
-    getNote,
-    addNote,
-    updateNote,
-    deleteNote } = require('../controllers/noteController')   
+const {
+  getAllNotes,
+  getNote,
+  addNote,
+  updateNote,
+  deleteNote,
+} = require('../controllers/noteController')
 
 //All basic API routes
 router.get('/', getAllNotes)
