@@ -48,9 +48,32 @@ const logIn = asyncHandler(async (req, res) => {
   }
 })
 
-const deleteUser = asyncHandler(async (req, res) => {})
+const deleteUser = asyncHandler(async (req, res) => {
+  const { email, password } = req.body
+  const user = await User.findOne({ email })
+  if (user && bcrypt.compare(password, user.password)) {
+    User.remove()
+    res.status(200).json({ message: 'User successfully removed' })
+  }
+  if (!user) {
+    res.status(400).json({ error: 'User not found' })
+  } else {
+    res.status(400).json({ error: 'Invalid credentials' })
+  }
+})
 
-const getMe = asyncHandler(async (req, res) => {})
+const getMe = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user.id)
+  if (user) {
+    res.json({
+      _id: user.id,
+      name: user.name,
+      email: user.email,
+    })
+  } else {
+    res.status(400).json({ error: 'User not found' })
+  }
+})
 
 const logOut = asyncHandler(async (req, res) => {})
 
@@ -64,6 +87,4 @@ module.exports = {
   registerUser,
   logIn,
   deleteUser,
-  logOut,
-  getMe,
 }

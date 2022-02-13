@@ -15,6 +15,6 @@ app.use('/api/notes', require('./routes/noteRoutes'))
 app.use('/api/users', require('./routes/userRoutes'))
 
 //Start server
-app.listen(process.env.PORT || 3000, () => {
+app.listen(process.env.PORT || 5000, () => {
   console.log('server is listening...')
 })
