@@ -1,13 +1,19 @@
-import { useState } from 'react'
+import { MouseEventHandler, useState } from 'react'
 import '../styles/Editor.css'
 import { marked } from 'marked'
+import { saveNotes } from '../contexts/userContext'
 
 function Editor() {
   const [title, setTitle] = useState('')
   const [note, setNote] = useState('')
+  const handleSubmit = (e: any) => {
+    e.preventDefault()
+    saveNotes(title, note)
+  }
+  // MAKE SURE TO UPDATE HTML TO BE SANITIZED //
   return (
     <div className="editor container">
-      <form className="editor-fields container">
+      <form onSubmit={handleSubmit} className="editor-fields container">
         <label htmlFor="title">
           Title:
           <input
@@ -31,6 +37,9 @@ function Editor() {
             }}
           />
         </label>
+        <button className="btn" formAction="submit">
+          Save Note
+        </button>
       </form>
       <div className="editor-preview container">
         <h2>{title}</h2>
