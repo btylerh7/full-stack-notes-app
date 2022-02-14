@@ -6,20 +6,39 @@ import Navbar from './components/Navbar'
 import './styles/App.css'
 
 function App() {
+  const { loggedIn, setLoggedIn, user, setUser } = useContext(UserContext)
+
+  //Checks for previous session on page load
   useEffect(() => {
     const current = window.localStorage.getItem('loggedIn')
     if (current) {
-      console.log(current)
       setLoggedIn(JSON.parse(current))
     }
   }, [])
-  const { loggedIn, setLoggedIn } = useContext(UserContext)
+
+  //Watches for changes in login state
   useEffect(() => {
     window.localStorage.setItem('loggedIn', JSON.stringify(loggedIn))
   })
 
+  //Checks for User information
+  useEffect(() => {
+    const currentUser = window.localStorage.getItem('User')
+    if (currentUser) {
+      setUser(JSON.parse(currentUser))
+    }
+  }, [])
+
+  useEffect(() => {
+    window.localStorage.setItem('User', JSON.stringify(user))
+  })
+
   if (!loggedIn) {
-    return <Login />
+    return (
+      <div className="login">
+        <Login />
+      </div>
+    )
   }
   return (
     <div className="App">

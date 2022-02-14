@@ -27,12 +27,12 @@ const getNote = asyncHandler(async (req, res) => {
 const addNote = asyncHandler(async (req, res) => {
   const { title, note } = req.body
   const user = req.user.id
-
   const newNote = await Note.create({
     title: title,
     note: note,
     user: user,
   })
+  console.log(newNote)
   res.status(201).json(newNote)
 })
 

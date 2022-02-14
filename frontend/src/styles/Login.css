@@ -1,0 +1,12 @@
+.login-form {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.login-form label {
+  display: grid;
+  max-width: 500px;
+  grid-template-columns: 1fr 1fr;
+}

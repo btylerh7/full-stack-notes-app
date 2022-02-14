@@ -1,14 +1,17 @@
 import { MouseEventHandler, useState } from 'react'
 import '../styles/Editor.css'
 import { marked } from 'marked'
-import { saveNotes } from '../contexts/userContext'
+import { saveNotes } from '../contexts/postFunctions'
+import { useContext } from 'react'
+import { UserContext } from '../contexts/userContext'
 
 function Editor() {
+  const { user } = useContext(UserContext)
   const [title, setTitle] = useState('')
   const [note, setNote] = useState('')
   const handleSubmit = (e: any) => {
     e.preventDefault()
-    saveNotes(title, note)
+    saveNotes(title, note, user.token)
   }
   // MAKE SURE TO UPDATE HTML TO BE SANITIZED //
   return (

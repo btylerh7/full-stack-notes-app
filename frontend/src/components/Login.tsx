@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { useState, useContext } from 'react'
 import { UserContext } from '../contexts/userContext'
+import '../styles/Login.css'
 
 function Login() {
   const [email, setEmail] = useState('')
@@ -25,22 +26,26 @@ function Login() {
     }
   }
   return (
-    <div className="container">
-      <form onSubmit={handleLogIn}>
+    <form className="login-form container" onSubmit={handleLogIn}>
+      <label htmlFor="email">
+        Email:
         <input
           placeholder="johnappleseed@gmail.com"
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
+      </label>
+      <label>
+        Password:
         <input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button formAction="submit">Log In</button>
-      </form>
-    </div>
+      </label>
+      <button formAction="submit">Log In</button>
+    </form>
   )
 }
 

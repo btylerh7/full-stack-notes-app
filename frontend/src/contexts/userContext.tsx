@@ -20,15 +20,3 @@ const UserProvider: React.FC = ({ children }: any) => {
 }
 
 export default UserProvider
-
-export async function saveNotes(title: string, note: string) {
-  try {
-    await axios.post('/api/notes', {
-      title: title,
-      note: note,
-    })
-    return alert('Note Saved')
-  } catch {
-    alert('Error: note not saved')
-  }
-}
