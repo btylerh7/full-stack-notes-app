@@ -32,15 +32,3 @@ export async function saveNotes(title: string, note: string) {
     alert('Error: note not saved')
   }
 }
-
-export async function logIn(email: string, password: string) {
-  try {
-    const login = await axios.post('/api/users/login', {
-      email: email,
-      password: password,
-    })
-    console.log(login)
-  } catch {
-    return alert('error, was not able to log in')
-  }
-}
