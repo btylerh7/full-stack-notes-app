@@ -1,5 +1,4 @@
-import { handle } from 'express/lib/application'
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
@@ -8,6 +7,9 @@ import { register, reset } from '../features/auth/authSlice'
 function Register() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const { user, isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.auth
   )
@@ -23,7 +25,9 @@ function Register() {
   }, [user, isError, isSuccess, message, navigate, dispatch])
 
   const handleSubmit = (e) => {
-    if (a) {
+    e.preventDefault()
+    if (isError) {
+      toast.error(message)
     } else {
       const userData = {
         name,
@@ -40,15 +44,23 @@ function Register() {
         <input
           placeholder="johnappleseed@gmail.com"
           type="email"
-          value={''}
-          onChange={''}
+          value={email}
+          onChange={(e) => {
+            setEmail(e.target.value)
+          }}
         />
       </label>
       <label>
         Password:
-        <input type="password" value={''} onChange={''} />
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => {
+            setPassword(e.target.value)
+          }}
+        />
       </label>
-      <button formAction="submit">Log In</button>
+      <button formAction="submit">Sign Up</button>
     </form>
   )
 }

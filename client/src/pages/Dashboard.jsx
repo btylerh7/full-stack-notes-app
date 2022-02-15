@@ -1,6 +1,7 @@
 import React from 'react'
+import Editor from '../components/Editor'
 function Dashboard() {
-  return <div>Dashboard</div>
+  return <Editor />
 }
 
 export default Dashboard
