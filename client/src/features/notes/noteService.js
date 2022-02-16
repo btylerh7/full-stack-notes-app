@@ -34,8 +34,16 @@ export const loadNotes = async (token) => {
   }
   try {
     const notes = await axios.get('/api/notes', config)
-    return notes
+    const loadedNotes = notes.data.allNotes
+    return loadedNotes
   } catch {
     alert('Error: Notes not found')
   }
 }
+
+const noteService = {
+  saveNote,
+  loadNotes,
+}
+
+export default noteService

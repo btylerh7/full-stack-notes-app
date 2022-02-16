@@ -1,27 +1,30 @@
 import { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import { loadNotes, saveNote } from '../features/notes/noteService'
+import { toast } from 'react-toastify'
+import { allNotes } from '../features/notes/noteSlice'
 
 function Notes() {
   const { user } = useSelector((state) => state.auth)
-  const [notes, setNotes] = useState([])
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const { notes, isIdle } = useSelector((state) => state.notes)
+
   useEffect(() => {
-    const load = async () => {
-      const currentNotes = await loadNotes(user.token)
-      console.log(currentNotes)
-      setNotes(currentNotes)
+    if (isIdle && user.token) {
+      dispatch(allNotes(user.token))
     }
-    load()
-  }, [user])
-  if (notes.length !== 0) {
-    console.log(notes)
-    notes.map((note) => {
-      let url = `/notes/${note.id}/`
-      return <Link to={url}>{note.title}</Link>
-    })
-  }
-  return <div>Loading...</div>
+  }, [isIdle, user])
+  console.log(notes)
+  return (
+    <>
+      <p>Notes</p>
+      {notes.map((note) => {
+        let url = `/notes/${note.id}`
+        return <Link to={url}>{note.title}</Link>
+      })}
+    </>
+  )
 }
 
 export default Notes
