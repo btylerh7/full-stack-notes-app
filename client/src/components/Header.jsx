@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { logout } from '../features/auth/authSlice'
+import Notes from './Notes'
 
 function Header() {
   const navigate = useNavigate()
@@ -13,6 +14,7 @@ function Header() {
   }
   return (
     <header className="header">
+      <Notes />
       <Link to="/login">
         <FaSignInAlt /> Login
       </Link>

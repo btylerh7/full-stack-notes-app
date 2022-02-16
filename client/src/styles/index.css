@@ -20,8 +20,11 @@ code {
 /* Define Base Layouts */
 .container {
   margin-inline: auto;
-  padding: 1rem;
   border: 1px solid #333;
+}
+
+.main {
+  padding: 1rem;
 }
 
 .btn {

@@ -18,10 +18,9 @@ function Editor() {
     <div className="editor container">
       <form onSubmit={handleSubmit} className="editor-fields container">
         <label htmlFor="title">
-          Title:
           <input
             type="text"
-            placeholder="A Cool Title..."
+            placeholder="Enter a cool title..."
             name="title"
             id="title"
             value={title}
@@ -46,7 +45,7 @@ function Editor() {
       </form>
       <div className="editor-preview container">
         <h2>{title}</h2>
-        <div dangerouslySetInnerHTML={{ __html: marked(note) }} />
+        <div dangerouslySetInnerHTML={{ __html: marked(note) }}></div>
       </div>
     </div>
   )
