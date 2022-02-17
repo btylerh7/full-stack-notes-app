@@ -63,6 +63,22 @@ export const loadNotes = async (token) => {
   }
 }
 
+export const deleteNote = async (id, token) => {
+  let userToken = `Bearer ${token}`
+  const config = {
+    headers: {
+      authorization: userToken,
+      'Content-Type': 'application/json',
+    },
+  }
+  try {
+    const response = await axios.delete(`/api/notes/${id}`, config)
+    return response.data
+  } catch {
+    alert('Error: note not updated')
+  }
+}
+
 export const loadSingleNote = async (token, id) => {
   let userToken = `Bearer ${token}`
   const config = {
@@ -81,6 +97,7 @@ export const loadSingleNote = async (token, id) => {
 }
 
 const noteService = {
+  deleteNote,
   addNote,
   updateNote,
   loadNotes,
