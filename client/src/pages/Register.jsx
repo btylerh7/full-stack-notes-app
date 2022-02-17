@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { register, reset } from '../features/auth/authSlice'
 
@@ -59,7 +59,13 @@ function Register() {
           }}
         />
       </label>
-      <button formAction="submit">Sign Up</button>
+      <button className="btn" formAction="submit">
+        Sign Up
+      </button>
+      <div>
+        <p>Already have an account?</p>
+        <Link to="/login">Login</Link>
+      </div>
     </form>
   )
 }

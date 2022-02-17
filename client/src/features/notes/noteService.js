@@ -8,9 +8,8 @@ export const addNote = async (title, note, token) => {
       'Content-Type': 'application/json',
     },
   }
-  console.log(title, note, token)
   try {
-    await axios.post(
+    const response = await axios.post(
       '/api/notes',
       {
         title: title,
@@ -18,7 +17,7 @@ export const addNote = async (title, note, token) => {
       },
       config
     )
-    return alert('Note Saved')
+    return response.data
   } catch {
     alert('Error: note not saved')
   }

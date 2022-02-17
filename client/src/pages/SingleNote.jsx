@@ -24,14 +24,17 @@ function SingleNote() {
           note: '',
         }
       }
+      if (note) {
+        setCurrentNote(note)
+      }
       return note
     })
   }, [id, notes, navigate, user])
 
   return (
     <div className="dashboard">
-      <Header currentNote={currentNote} />
-      <Editor currentNote={currentNote} />
+      <Header id={id} currentNote={currentNote} />
+      <Editor id={id} currentNote={currentNote} />
     </div>
   )
 }

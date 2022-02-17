@@ -1,36 +1,60 @@
 import { useState } from 'react'
 import { marked } from 'marked'
+import { toast } from 'react-toastify'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
-import { addNote } from '../features/notes/noteService'
+import { addNote, noteReset } from '../features/notes/noteSlice'
 import { useNavigate } from 'react-router-dom'
 
-function Editor({ currentNote }) {
+function Editor({ currentNote, id }) {
   const { user } = useSelector((state) => state.auth)
+  const { notes, isSuccess, isError, message } = useSelector(
+    (state) => state.notes
+  )
   const [title, setTitle] = useState('')
   const [note, setNote] = useState('')
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (currentNote) {
+    if (id && currentNote.title) {
       setTitle(currentNote.title)
       setNote(currentNote.note)
     }
-  }, [currentNote])
+  }, [id, currentNote])
 
-  const handleSubmit = async (e) => {
+  useEffect(() => {
+    if (isError) {
+      toast.error(message)
+    }
+    if (isSuccess && note !== '') {
+      const newNote = notes.find((note) => note.title === title)
+      navigate(`/notes/${newNote._id}`)
+    }
+    return () => {
+      dispatch(noteReset())
+    }
+  }, [isError, notes, isSuccess, message, navigate, dispatch])
+
+  const handleCreate = (e) => {
     e.preventDefault()
     // saveNotes(title, note, user.token)
-    if (!currentNote) {
-      await dispatch(addNote(title, note))
-      navigate(`/notes/${note._id}`)
+    if (title && note) {
+      const noteData = {
+        title,
+        note,
+      }
+      dispatch(addNote(noteData))
     }
   }
+  const handleSave = () => {}
   // MAKE SURE TO UPDATE HTML TO BE SANITIZED //
   return (
     <div className="editor">
-      <form onSubmit={handleSubmit} className="editor-fields ">
+      <form
+        onSubmit={id ? handleSave : handleCreate}
+        className="editor-fields "
+      >
         <label htmlFor="title">
           Title: <br />
           <input
@@ -56,16 +80,12 @@ function Editor({ currentNote }) {
           />
         </label>
         <button className="btn" formAction="submit">
-          {currentNote ? 'Save Note' : 'Create Note'}
+          {id ? 'Save Note' : 'Create Note'}
         </button>
       </form>
       <div className="editor-preview ">
-        {title ? <h2>{title}</h2> : <h2></h2>}
-        {note ? (
-          <div dangerouslySetInnerHTML={{ __html: marked(note) }}></div>
-        ) : (
-          <div></div>
-        )}
+        <h2>{title}</h2>
+        <div dangerouslySetInnerHTML={{ __html: marked(note) }}></div>
       </div>
     </div>
   )

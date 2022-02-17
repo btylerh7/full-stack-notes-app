@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { logout } from '../features/auth/authSlice'
 import Notes from './Notes'
+import '../styles/Header.css'
 
-function Header() {
+function Header({ id }) {
   const { user } = useSelector((state) => state.auth)
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -16,13 +17,7 @@ function Header() {
   return (
     <header className="header">
       <p>Hello, {user && user.name}</p> <br />
-      <Notes />
-      <Link to="/login">
-        <FaSignInAlt /> Login
-      </Link>
-      <Link to="/register">
-        <FaUser /> Register
-      </Link>
+      <Notes id={id} />
       <button onClick={handleClick}>Log Out</button>
     </header>
   )

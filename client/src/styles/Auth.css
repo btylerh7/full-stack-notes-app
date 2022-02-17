@@ -3,6 +3,7 @@
   place-content: center;
   min-height: 80vh;
   gap: 1rem;
+  text-align: center;
 }
 .login-form label {
   display: flex;

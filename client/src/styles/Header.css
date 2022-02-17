@@ -1,0 +1,10 @@
+.navlink {
+  text-decoration: none;
+  padding: 0.5rem;
+  border: 1px inset var(--nav-bg);
+  border-radius: 5px;
+}
+
+.navlink.active {
+  border-right: 5px solid var(--active);
+}

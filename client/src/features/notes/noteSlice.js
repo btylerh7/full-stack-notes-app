@@ -51,10 +51,13 @@ export const oneNote = createAsyncThunk(
 
 export const addNote = createAsyncThunk(
   'notes/addNote',
-  async (title, note, token, thunkAPI) => {
+  async (noteData, thunkAPI) => {
     try {
+      const token = thunkAPI.getState().auth.user.token
+      const { title, note } = noteData
       return await noteService.addNote(title, note, token)
     } catch (error) {
+      console.log(error)
       const message =
         (error.response &&
           error.response.data &&
@@ -71,8 +74,6 @@ export const noteSlice = createSlice({
   initialState,
   reducers: {
     noteReset: (state) => {
-      state.user = null
-      state.currentNote = {}
       state.isError = false
       state.isSuccess = false
       state.isLoading = false
@@ -114,6 +115,13 @@ export const noteSlice = createSlice({
       })
       .addCase(addNote.fulfilled, (state, action) => {
         state.isSuccess = true
+        state.notes.push(action.payload)
+      })
+      .addCase(addNote.rejected, (state, action) => {
+        state.isLoading = false
+        state.isError = true
+        state.message = action.payload
+        state.currentNote = {}
       })
   },
 })
