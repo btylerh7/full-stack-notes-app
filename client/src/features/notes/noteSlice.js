@@ -6,6 +6,9 @@ const initialState = {
   currentNote: {},
   isIdle: true,
   isLoading: false,
+  isLoaded: false,
+  isAdded: false,
+  isUpdated: false,
   isSuccess: false,
   isError: false,
   message: '',
@@ -69,6 +72,26 @@ export const addNote = createAsyncThunk(
   }
 )
 
+export const updateNote = createAsyncThunk(
+  'notes/updateNote',
+  async (noteData, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token
+      const { id, title, note } = noteData
+      return await noteService.updateNote(id, title, note, token)
+    } catch (error) {
+      console.log(error)
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString()
+      return thunkAPI.rejectWithValue(message)
+    }
+  }
+)
+
 export const noteSlice = createSlice({
   name: 'notes',
   initialState,
@@ -76,6 +99,9 @@ export const noteSlice = createSlice({
     noteReset: (state) => {
       state.isError = false
       state.isSuccess = false
+      state.isUpdated = false
+      state.isAdded = false
+      state.isLoaded = false
       state.isLoading = false
       state.message = ''
     },
@@ -88,6 +114,7 @@ export const noteSlice = createSlice({
       })
       .addCase(allNotes.fulfilled, (state, action) => {
         state.isLoading = false
+        state.isSuccess = true
         state.isSuccess = true
         state.notes = action.payload
         state.isIdle = true
@@ -104,6 +131,7 @@ export const noteSlice = createSlice({
       })
       .addCase(oneNote.fulfilled, (state, action) => {
         state.isLoading = false
+        state.isLoaded = true
         state.isSuccess = true
         state.currentNote = action.payload
       })
@@ -113,15 +141,33 @@ export const noteSlice = createSlice({
         state.message = action.payload
         state.currentNote = {}
       })
+      .addCase(addNote.pending, (state) => {
+        state.isLoading = true
+      })
       .addCase(addNote.fulfilled, (state, action) => {
         state.isSuccess = true
+        state.isAdded = true
+        state.isLoading = false
         state.notes.push(action.payload)
       })
       .addCase(addNote.rejected, (state, action) => {
         state.isLoading = false
         state.isError = true
         state.message = action.payload
-        state.currentNote = {}
+      })
+      .addCase(updateNote.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(updateNote.fulfilled, (state, action) => {
+        state.isSuccess = true
+        state.isUpdated = true
+        state.isLoading = false
+        state.currentNote = action.payload
+      })
+      .addCase(updateNote.rejected, (state, action) => {
+        state.isLoading = false
+        state.isError = true
+        state.message = action.payload
       })
   },
 })

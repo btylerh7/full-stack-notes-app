@@ -23,6 +23,29 @@ export const addNote = async (title, note, token) => {
   }
 }
 
+export const updateNote = async (id, title, note, token) => {
+  let userToken = `Bearer ${token}`
+  const config = {
+    headers: {
+      authorization: userToken,
+      'Content-Type': 'application/json',
+    },
+  }
+  try {
+    const response = await axios.put(
+      `/api/notes/${id}`,
+      {
+        title: title,
+        note: note,
+      },
+      config
+    )
+    return response.data
+  } catch {
+    alert('Error: note not updated')
+  }
+}
+
 export const loadNotes = async (token) => {
   let userToken = `Bearer ${token}`
   const config = {
@@ -50,7 +73,7 @@ export const loadSingleNote = async (token, id) => {
   }
   try {
     const notes = await axios.get(`/api/notes/${id}`, config)
-    const loadedNote = notes.data.note
+    const loadedNote = notes.data
     return loadedNote
   } catch {
     alert('Error: Single Note not found')
@@ -59,6 +82,7 @@ export const loadSingleNote = async (token, id) => {
 
 const noteService = {
   addNote,
+  updateNote,
   loadNotes,
   loadSingleNote,
 }

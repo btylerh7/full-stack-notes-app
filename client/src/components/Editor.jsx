@@ -3,38 +3,70 @@ import { marked } from 'marked'
 import { toast } from 'react-toastify'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
-import { addNote, noteReset } from '../features/notes/noteSlice'
+import {
+  oneNote,
+  updateNote,
+  addNote,
+  noteReset,
+} from '../features/notes/noteSlice'
 import { useNavigate } from 'react-router-dom'
 
-function Editor({ currentNote, id }) {
-  const { user } = useSelector((state) => state.auth)
-  const { notes, isSuccess, isError, message } = useSelector(
-    (state) => state.notes
-  )
+function Editor({ id }) {
+  const {
+    notes,
+    isError,
+    isSuccess,
+    isLoaded,
+    isAdded,
+    isUpdated,
+    message,
+    currentNote,
+  } = useSelector((state) => state.notes)
   const [title, setTitle] = useState('')
   const [note, setNote] = useState('')
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (id && currentNote.title) {
-      setTitle(currentNote.title)
-      setNote(currentNote.note)
+    if (id) {
+      dispatch(oneNote(id))
     }
-  }, [id, currentNote])
+  }, [id])
 
   useEffect(() => {
     if (isError) {
       toast.error(message)
     }
-    if (isSuccess && note !== '') {
+
+    if (isAdded) {
       const newNote = notes.find((note) => note.title === title)
       navigate(`/notes/${newNote._id}`)
+      toast.success('Note Added!')
     }
+    if (isLoaded) {
+      setTitle(currentNote.title)
+      setNote(currentNote.note)
+    }
+    if (isUpdated) {
+      toast.success('Note Updated!')
+      setTitle(currentNote.title)
+      setNote(currentNote.note)
+    }
+
     return () => {
       dispatch(noteReset())
     }
-  }, [isError, notes, isSuccess, message, navigate, dispatch])
+  }, [
+    isError,
+    isSuccess,
+    isAdded,
+    isUpdated,
+    currentNote,
+    notes,
+    message,
+    navigate,
+    dispatch,
+  ])
 
   const handleCreate = (e) => {
     e.preventDefault()
@@ -47,7 +79,18 @@ function Editor({ currentNote, id }) {
       dispatch(addNote(noteData))
     }
   }
-  const handleSave = () => {}
+  const handleSave = (e) => {
+    e.preventDefault()
+    if (id && title && note) {
+      const noteData = {
+        id,
+        title,
+        note,
+      }
+      dispatch(updateNote(noteData))
+      window.location.reload = false
+    }
+  }
   // MAKE SURE TO UPDATE HTML TO BE SANITIZED //
   return (
     <div className="editor">
