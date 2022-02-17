@@ -1,4 +1,4 @@
-import { FaSignInAlt, FaSignOutAlt, FaUser } from 'react-icons/fa'
+import { FaSignInAlt, FaPlusCircle, FaSignOutAlt, FaUser } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -17,8 +17,17 @@ function Header({ id }) {
   return (
     <header className="header">
       <p>Hello, {user && user.name}</p> <br />
+      <p>Add Note</p>
+      <FaPlusCircle
+        onClick={() => {
+          navigate('/')
+        }}
+      />
       <Notes id={id} />
-      <button onClick={handleClick}>Log Out</button>
+      <br />
+      <button className="btn" onClick={handleClick}>
+        Log Out
+      </button>
     </header>
   )
 }

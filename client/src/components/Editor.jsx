@@ -58,7 +58,6 @@ function Editor({ id }) {
     }
   }, [
     isError,
-    isSuccess,
     isAdded,
     isUpdated,
     currentNote,

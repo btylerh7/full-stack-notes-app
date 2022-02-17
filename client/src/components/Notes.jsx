@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { FaTimesCircle } from 'react-icons/fa'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
@@ -38,13 +39,12 @@ function Notes({ id }) {
             to={url}
           >
             {note.title}
-            <button
+
+            <FaTimesCircle
               onClick={(e) => {
                 handleDelete(e, note._id)
               }}
-            >
-              X
-            </button>
+            />
           </Link>
         )
       })}
