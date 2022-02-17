@@ -59,7 +59,7 @@ function Register() {
           }}
         />
       </label>
-      <button class="btn" formAction="submit">
+      <button className="btn" formAction="submit">
         Sign In
       </button>
     </form>

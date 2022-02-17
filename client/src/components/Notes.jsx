@@ -11,13 +11,15 @@ function Notes() {
   const { notes } = useSelector((state) => state.notes)
 
   useEffect(() => {
-    dispatch(allNotes(user.token))
+    if (user) {
+      dispatch(allNotes(user.token))
+    }
   }, [])
   return (
     <>
       <p>Notes</p>
-      {notes.map((note) => {
-        let url = `/notes/${note.id}`
+      {notes?.map((note) => {
+        let url = `/notes/${note._id}`
         return <Link to={url}>{note.title}</Link>
       })}
     </>

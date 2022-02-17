@@ -41,9 +41,27 @@ export const loadNotes = async (token) => {
   }
 }
 
+export const loadSingleNote = async (token, id) => {
+  let userToken = `Bearer ${token}`
+  const config = {
+    headers: {
+      authorization: userToken,
+      'Content-Type': 'application/json',
+    },
+  }
+  try {
+    const notes = await axios.get(`/api/notes/${id}`, config)
+    const loadedNote = notes.data.note
+    return loadedNote
+  } catch {
+    alert('Error: Single Note not found')
+  }
+}
+
 const noteService = {
   saveNote,
   loadNotes,
+  loadSingleNote,
 }
 
 export default noteService

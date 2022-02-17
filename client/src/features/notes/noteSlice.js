@@ -3,6 +3,7 @@ import noteService from './noteService'
 
 const initialState = {
   notes: [],
+  currentNote: {},
   isIdle: true,
   isLoading: false,
   isSuccess: false,
@@ -14,9 +15,26 @@ const initialState = {
 
 export const allNotes = createAsyncThunk(
   'notes/allNotes',
-  async (token, thunkAPI) => {
+  async (token, id, thunkAPI) => {
     try {
       return await noteService.loadNotes(token)
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString()
+      return thunkAPI.rejectWithValue(message)
+    }
+  }
+)
+
+export const oneNote = createAsyncThunk(
+  'notes/oneNote',
+  async (token, id, thunkAPI) => {
+    try {
+      return await noteService.loadSingleNote(token, id)
     } catch (error) {
       const message =
         (error.response &&
@@ -35,6 +53,7 @@ export const noteSlice = createSlice({
   reducers: {
     noteReset: (state) => {
       state.user = null
+      state.currentNote = {}
       state.isError = false
       state.isSuccess = false
       state.isLoading = false
@@ -54,11 +73,25 @@ export const noteSlice = createSlice({
         state.isIdle = true
       })
       .addCase(allNotes.rejected, (state, action) => {
-        state.isLoading(false)
-        state.isError(true)
+        state.isLoading = false
+        state.isError = true
         state.message = action.payload
         state.isIdle = true
         state.notes = []
+      })
+      .addCase(oneNote.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(oneNote.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.isSuccess = true
+        state.currentNote = action.payload
+      })
+      .addCase(oneNote.rejected, (state, action) => {
+        state.isLoading = false
+        state.isError = true
+        state.message = action.payload
+        state.currentNote = {}
       })
   },
 })

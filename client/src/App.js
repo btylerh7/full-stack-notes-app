@@ -6,6 +6,7 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { useSelector } from 'react-redux'
 import { Navigate } from 'react-router-dom'
+import SingleNote from './pages/SingleNote'
 
 function App() {
   const { user } = useSelector((state) => state.auth)
@@ -17,6 +18,7 @@ function App() {
             <Route path="/" element={<Dashboard />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/notes/:id" element={<SingleNote />} />
           </Routes>
         </div>
       </Router>

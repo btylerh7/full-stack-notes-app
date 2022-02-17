@@ -1,14 +1,19 @@
 import { useState } from 'react'
 import { marked } from 'marked'
 import { useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { oneNote } from '../features/notes/noteSlice'
+import { current } from '@reduxjs/toolkit'
 // import { saveNotes } from '../contexts/postFunctions'
 // import { useContext } from 'react'
 // import { UserContext } from '../contexts/userContext'
 
-function Editor() {
+function Editor({ active }) {
   const { user } = useSelector((state) => state.auth)
-  const [title, setTitle] = useState('')
-  const [note, setNote] = useState('')
+  const [title, setTitle] = useState(active ? active.title : '')
+  const [note, setNote] = useState(active ? active.note : '')
+  console.log(active)
+
   const handleSubmit = (e) => {
     e.preventDefault()
     // saveNotes(title, note, user.token)
@@ -46,8 +51,12 @@ function Editor() {
         </button>
       </form>
       <div className="editor-preview ">
-        <h2>{title}</h2>
-        <div dangerouslySetInnerHTML={{ __html: marked(note) }}></div>
+        {title ? <h2>{title}</h2> : <h2></h2>}
+        {note ? (
+          <div dangerouslySetInnerHTML={{ __html: marked(note) }}></div>
+        ) : (
+          <div></div>
+        )}
       </div>
     </div>
   )
