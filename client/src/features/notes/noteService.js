@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export const saveNote = async (title, note, token) => {
+export const addNote = async (title, note, token) => {
   let userToken = `Bearer ${token}`
   const config = {
     headers: {
@@ -59,7 +59,7 @@ export const loadSingleNote = async (token, id) => {
 }
 
 const noteService = {
-  saveNote,
+  addNote,
   loadNotes,
   loadSingleNote,
 }

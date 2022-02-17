@@ -1,22 +1,31 @@
 import { useState } from 'react'
 import { marked } from 'marked'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
-import { oneNote } from '../features/notes/noteSlice'
-import { current } from '@reduxjs/toolkit'
-// import { saveNotes } from '../contexts/postFunctions'
-// import { useContext } from 'react'
-// import { UserContext } from '../contexts/userContext'
+import { addNote } from '../features/notes/noteService'
+import { useNavigate } from 'react-router-dom'
 
-function Editor({ active }) {
+function Editor({ currentNote }) {
   const { user } = useSelector((state) => state.auth)
-  const [title, setTitle] = useState(active ? active.title : '')
-  const [note, setNote] = useState(active ? active.note : '')
-  console.log(active)
+  const [title, setTitle] = useState('')
+  const [note, setNote] = useState('')
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    if (currentNote) {
+      setTitle(currentNote.title)
+      setNote(currentNote.note)
+    }
+  }, [currentNote])
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
     // saveNotes(title, note, user.token)
+    if (!currentNote) {
+      await dispatch(addNote(title, note, user.token))
+      navigate(`/notes/${note._id}`)
+    }
   }
   // MAKE SURE TO UPDATE HTML TO BE SANITIZED //
   return (
@@ -47,7 +56,7 @@ function Editor({ active }) {
           />
         </label>
         <button className="btn" formAction="submit">
-          Save Note
+          {currentNote ? 'Save Note' : 'Create Note'}
         </button>
       </form>
       <div className="editor-preview ">

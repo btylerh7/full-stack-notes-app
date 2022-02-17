@@ -47,6 +47,23 @@ export const oneNote = createAsyncThunk(
   }
 )
 
+export const addNote = createAsyncThunk(
+  'notes/addNote',
+  async (title, note, token, thunkAPI) => {
+    try {
+      return await noteService.addNote(title, note, token)
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString()
+      return thunkAPI.rejectWithValue(message)
+    }
+  }
+)
+
 export const noteSlice = createSlice({
   name: 'notes',
   initialState,
@@ -92,6 +109,9 @@ export const noteSlice = createSlice({
         state.isError = true
         state.message = action.payload
         state.currentNote = {}
+      })
+      .addCase(addNote.fulfilled, (state, action) => {
+        state.isSuccess = true
       })
   },
 })

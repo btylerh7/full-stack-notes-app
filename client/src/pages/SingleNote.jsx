@@ -2,30 +2,36 @@ import Editor from '../components/Editor'
 import Header from '../components/Header'
 import '../styles/Dashboard.css'
 import { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
-import { oneNote } from '../features/notes/noteSlice'
 
 function SingleNote() {
   const { id } = useParams()
-  console.log(id)
   const { user } = useSelector((state) => state.auth)
-  const { currentNote } = useSelector((state) => state.notes)
+  const { notes } = useSelector((state) => state.notes)
+  const [currentNote, setCurrentNote] = useState({})
   const navigate = useNavigate()
-  const dispatch = useDispatch()
 
   useEffect(() => {
     if (!user) {
       navigate('/login')
     }
-
-    dispatch(oneNote(user.token, id))
-  }, [])
+    setCurrentNote(() => {
+      const note = notes.find((note) => note._id === id)
+      if (!note) {
+        return {
+          title: '',
+          note: '',
+        }
+      }
+      return note
+    })
+  }, [id, notes])
 
   return (
     <div className="dashboard">
-      <Header active={currentNote} />
-      <Editor active={currentNote} />
+      <Header currentNote={currentNote} />
+      <Editor currentNote={currentNote} />
     </div>
   )
 }
