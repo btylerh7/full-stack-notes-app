@@ -23,7 +23,7 @@ function Editor({ currentNote }) {
     e.preventDefault()
     // saveNotes(title, note, user.token)
     if (!currentNote) {
-      await dispatch(addNote(title, note, user.token))
+      await dispatch(addNote(title, note))
       navigate(`/notes/${note._id}`)
     }
   }

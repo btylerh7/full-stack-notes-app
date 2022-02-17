@@ -26,7 +26,7 @@ function SingleNote() {
       }
       return note
     })
-  }, [id, notes])
+  }, [id, notes, navigate, user])
 
   return (
     <div className="dashboard">

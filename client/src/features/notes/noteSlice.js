@@ -15,8 +15,9 @@ const initialState = {
 
 export const allNotes = createAsyncThunk(
   'notes/allNotes',
-  async (token, id, thunkAPI) => {
+  async (_, thunkAPI) => {
     try {
+      const token = thunkAPI.getState().auth.user.token
       return await noteService.loadNotes(token)
     } catch (error) {
       const message =
@@ -32,8 +33,9 @@ export const allNotes = createAsyncThunk(
 
 export const oneNote = createAsyncThunk(
   'notes/oneNote',
-  async (token, id, thunkAPI) => {
+  async (id, thunkAPI) => {
     try {
+      const token = thunkAPI.getState().auth.user.token
       return await noteService.loadSingleNote(token, id)
     } catch (error) {
       const message =

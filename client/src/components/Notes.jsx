@@ -12,9 +12,9 @@ function Notes() {
 
   useEffect(() => {
     if (user) {
-      dispatch(allNotes(user.token))
+      dispatch(allNotes())
     }
-  }, [])
+  }, [dispatch, user])
   return (
     <>
       <p>Notes</p>
