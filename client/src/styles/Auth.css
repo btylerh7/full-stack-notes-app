@@ -1,0 +1,17 @@
+.login-form {
+  display: grid;
+  place-content: center;
+  min-height: 80vh;
+  gap: 1rem;
+}
+.login-form label {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.login-form input {
+  padding: 0.5rem;
+  border-radius: 5px;
+}

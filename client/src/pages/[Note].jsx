@@ -4,7 +4,7 @@ import '../styles/Dashboard.css'
 import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-function Dashboard() {
+function oneNote() {
   const { user } = useSelector((state) => state.auth)
   const navigate = useNavigate()
   useEffect(() => {
@@ -15,7 +15,7 @@ function Dashboard() {
 
   return (
     <div className="dashboard">
-      <Header />
+      <Header active={}/>
       <Editor />
     </div>
   )

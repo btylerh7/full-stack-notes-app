@@ -14,10 +14,7 @@ function App() {
       <Router>
         <div className="main container">
           <Routes>
-            <Route
-              path="/"
-              element={user ? <Dashboard /> : <Navigate to="/login" />}
-            />
+            <Route path="/" element={<Dashboard />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
           </Routes>

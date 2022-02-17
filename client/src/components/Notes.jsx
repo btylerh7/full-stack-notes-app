@@ -8,14 +8,11 @@ function Notes() {
   const { user } = useSelector((state) => state.auth)
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { notes, isIdle } = useSelector((state) => state.notes)
+  const { notes } = useSelector((state) => state.notes)
 
   useEffect(() => {
-    if (isIdle && user.token) {
-      dispatch(allNotes(user.token))
-    }
-  }, [isIdle, user])
-  console.log(notes)
+    dispatch(allNotes(user.token))
+  }, [])
   return (
     <>
       <p>Notes</p>

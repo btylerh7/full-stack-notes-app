@@ -16,9 +16,7 @@ export const allNotes = createAsyncThunk(
   'notes/allNotes',
   async (token, thunkAPI) => {
     try {
-      const notes = await noteService.loadNotes(token)
-      console.log(notes)
-      return notes
+      return await noteService.loadNotes(token)
     } catch (error) {
       const message =
         (error.response &&
@@ -42,26 +40,26 @@ export const noteSlice = createSlice({
       state.isLoading = false
       state.message = ''
     },
-    extraReducers: (builder) => {
-      builder
-        .addCase(allNotes.pending, (state) => {
-          state.isLoading = true
-          state.isIdle = false
-        })
-        .addCase(allNotes.fulfilled, (state, action) => {
-          state.isLoading = false
-          state.isSuccess = true
-          state.notes = action.payload
-          state.isIdle = true
-        })
-        .addCase(allNotes.rejected, (state, action) => {
-          state.isLoading(false)
-          state.isError(true)
-          state.message = action.payload
-          state.isIdle = true
-          state.notes = []
-        })
-    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(allNotes.pending, (state) => {
+        state.isLoading = true
+        state.isIdle = false
+      })
+      .addCase(allNotes.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.isSuccess = true
+        state.notes = action.payload
+        state.isIdle = true
+      })
+      .addCase(allNotes.rejected, (state, action) => {
+        state.isLoading(false)
+        state.isError(true)
+        state.message = action.payload
+        state.isIdle = true
+        state.notes = []
+      })
   },
 })
 

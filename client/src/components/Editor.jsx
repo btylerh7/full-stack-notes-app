@@ -15,9 +15,10 @@ function Editor() {
   }
   // MAKE SURE TO UPDATE HTML TO BE SANITIZED //
   return (
-    <div className="editor container">
-      <form onSubmit={handleSubmit} className="editor-fields container">
+    <div className="editor">
+      <form onSubmit={handleSubmit} className="editor-fields ">
         <label htmlFor="title">
+          Title: <br />
           <input
             type="text"
             placeholder="Enter a cool title..."
@@ -31,6 +32,7 @@ function Editor() {
         </label>
         <label htmlFor="note">
           Note Text:
+          <br />
           <textarea
             className="textarea"
             value={note}
@@ -43,7 +45,7 @@ function Editor() {
           Save Note
         </button>
       </form>
-      <div className="editor-preview container">
+      <div className="editor-preview ">
         <h2>{title}</h2>
         <div dangerouslySetInnerHTML={{ __html: marked(note) }}></div>
       </div>

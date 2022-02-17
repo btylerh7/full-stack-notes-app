@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import '../styles/Auth.css'
 import { login, reset } from '../features/auth/authSlice'
 
 function Register() {
@@ -37,11 +38,10 @@ function Register() {
     }
   }
   return (
-    <form className="login-form container" onSubmit={handleSubmit}>
+    <form className="login-form" onSubmit={handleSubmit}>
       <label htmlFor="email">
         Email:
         <input
-          placeholder="johnappleseed@gmail.com"
           type="email"
           value={email}
           onChange={(e) => {
@@ -59,7 +59,9 @@ function Register() {
           }}
         />
       </label>
-      <button formAction="submit">Sign In</button>
+      <button class="btn" formAction="submit">
+        Sign In
+      </button>
     </form>
   )
 }

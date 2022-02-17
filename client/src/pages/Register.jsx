@@ -38,11 +38,10 @@ function Register() {
     }
   }
   return (
-    <form className="login-form container" onSubmit={handleSubmit}>
+    <form className="login-form " onSubmit={handleSubmit}>
       <label htmlFor="email">
         Email:
         <input
-          placeholder="johnappleseed@gmail.com"
           type="email"
           value={email}
           onChange={(e) => {
