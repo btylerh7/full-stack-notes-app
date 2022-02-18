@@ -6,13 +6,16 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  color: var(--main-text-color);
 }
 
 body {
   font-family: 'Lato', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--dark-color);
+  scroll-behavior: smooth;
+  scroll-padding-top: 2rem;
+  color: var(--light-text);
 }
 
 code {
@@ -21,32 +24,52 @@ code {
 }
 /* Define colors and other custom variables */
 :root {
-  --main-text-color: #333;
+  --dark-color: #041c32;
+  --medium-color: #04293a;
+  --light-color: #064663;
+  --accent-color: #ecb365;
+  --dark-text: #000000;
+  --light-text: #ffffff;
   --nav-bg: #666666ff;
   --active: tomato;
+  --off-white: #f0f0f0;
 }
 
+/* .Toastify__progress-bar--success {
+  background: var(--medium-color) !important;
+} */
 /* Define Utility Classes */
 .full-width {
   width: 100%;
 }
+.pointer {
+  cursor: pointer;
+}
 /* Define Base Layouts */
 .container {
   margin-inline: auto;
-  border: 1px solid #333;
 }
 
+.flex-2-items {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 1rem;
+  align-items: center;
+}
 .main {
   padding: 1rem;
 }
 
 .btn {
   border-radius: 1rem;
+  background-color: var(--off-white);
+  color: var(--dark-text);
   max-width: 500px;
   padding: 0.5rem;
   cursor: pointer;
 }
 .btn:hover {
-  background-color: #333;
-  color: #fff;
+  background-color: var(--medium-color);
+  color: var(--light-text);
 }

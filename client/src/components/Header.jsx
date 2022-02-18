@@ -17,12 +17,16 @@ function Header({ id }) {
   return (
     <header className="header">
       <p>Hello, {user && user.name}</p> <br />
-      <p>Add Note</p>
-      <FaPlusCircle
+      <div
         onClick={() => {
           navigate('/')
         }}
-      />
+        className="flex-2-items pointer"
+      >
+        <p>Add Note</p>
+        <FaPlusCircle />
+      </div>
+      <br />
       <Notes id={id} />
       <br />
       <button className="btn" onClick={handleClick}>

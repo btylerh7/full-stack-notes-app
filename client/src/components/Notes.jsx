@@ -29,12 +29,15 @@ function Notes({ id }) {
   }
   return (
     <>
-      <p>Notes</p>
       {notes?.map((note) => {
         let url = `/notes/${note._id}`
         return (
           <Link
-            className={note._id === id ? 'navlink active' : 'navlink'}
+            className={
+              note._id === id
+                ? 'navlink active flex-2-items'
+                : 'navlink flex-2-items'
+            }
             key={note._id}
             to={url}
           >
@@ -44,6 +47,7 @@ function Notes({ id }) {
               onClick={(e) => {
                 handleDelete(e, note._id)
               }}
+              className="pointer"
             />
           </Link>
         )

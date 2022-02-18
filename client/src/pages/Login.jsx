@@ -36,37 +36,39 @@ function Register() {
     dispatch(login(userData))
   }
   return (
-    <>
-      <form className="login-form" onSubmit={handleSubmit}>
-        <label htmlFor="email">
-          Email:
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value)
-            }}
-          />
-        </label>
-        <label>
-          Password:
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value)
-            }}
-          />
-        </label>
-        <button className="btn" formAction="submit">
-          Sign In
-        </button>
-        <div>
-          <p>Don't have an account?</p>
-          <Link to="/register">Create an Account</Link>
-        </div>
-      </form>
-    </>
+    <div className="login-outer">
+      <div className="login-container">
+        <form className="login-form" onSubmit={handleSubmit}>
+          <label htmlFor="email">
+            Email:
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value)
+              }}
+            />
+          </label>
+          <label>
+            Password:
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value)
+              }}
+            />
+          </label>
+          <button className="btn" formAction="submit">
+            Sign In
+          </button>
+          <div>
+            <p>Don't have an account?</p>
+            <Link to="/register">Create an Account</Link>
+          </div>
+        </form>
+      </div>
+    </div>
   )
 }
 

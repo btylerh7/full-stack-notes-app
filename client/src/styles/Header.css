@@ -1,9 +1,18 @@
+.header {
+  padding: 1rem;
+  background-color: var(--light-color);
+  overflow: scroll;
+}
+
 .navlink {
   text-decoration: none;
+  color: var(--light-text);
+  font-weight: 700;
   padding: 0.5rem;
-  border: 1px inset var(--nav-bg);
+  border: 0.5px solid var(--light-text);
+  background-color: var(--light-color);
 }
 
 .navlink.active {
-  border-right: 5px solid var(--active);
+  border-right: 5px solid var(--accent-color);
 }

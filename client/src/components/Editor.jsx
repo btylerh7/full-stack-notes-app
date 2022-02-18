@@ -127,7 +127,10 @@ function Editor({ id }) {
       </form>
       <div className="editor-preview ">
         <h2>{title}</h2>
-        <div dangerouslySetInnerHTML={{ __html: marked(note) }}></div>
+        <div
+          class="preview"
+          dangerouslySetInnerHTML={{ __html: marked(note) }}
+        ></div>
       </div>
     </div>
   )

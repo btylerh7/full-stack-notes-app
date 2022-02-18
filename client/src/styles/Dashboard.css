@@ -1,9 +1,10 @@
 .dashboard {
+  background: var(--medium-color);
   display: grid;
   grid-template-columns: 1fr 3fr;
   width: 100%;
   min-height: 80vh;
-  border: 4px solid #333;
+  border: 1px solid var(--light-color);
   border-radius: 1rem;
   padding: 1rem;
 }
@@ -13,9 +14,10 @@
   flex-direction: column;
 }
 .editor {
+  background-color: var(--light-color);
   display: grid;
   width: 100%;
-  grid-template-columns: 0.25fr 0.75fr;
+  grid-template-columns: 0.35fr 0.65fr;
   justify-content: space-between;
 }
 .editor-fields {
@@ -36,16 +38,27 @@
   line-height: 1.5;
   gap: 0.5rem;
 }
-
+.preview > * {
+  margin: 0.75rem 0;
+}
 .textarea {
+  border-radius: 5px;
   width: 100%;
+  padding: 0.5rem;
   min-height: 500px;
+  color: var(--dark-text);
+  background-color: var(--off-white);
 }
 .editor label {
   width: 100%;
 }
 .editor input {
   width: 100%;
+  background-color: var(--off-white);
+  color: var(--dark-text);
+  padding: 0.5rem;
+  border-radius: 5px;
+  font-weight: 700;
 }
 /*
 .editor {

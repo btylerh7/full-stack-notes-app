@@ -38,35 +38,39 @@ function Register() {
     }
   }
   return (
-    <form className="login-form " onSubmit={handleSubmit}>
-      <label htmlFor="email">
-        Email:
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => {
-            setEmail(e.target.value)
-          }}
-        />
-      </label>
-      <label>
-        Password:
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => {
-            setPassword(e.target.value)
-          }}
-        />
-      </label>
-      <button className="btn" formAction="submit">
-        Sign Up
-      </button>
-      <div>
-        <p>Already have an account?</p>
-        <Link to="/login">Login</Link>
+    <div className="login-outer">
+      <div className="login-container">
+        <form className="login-form " onSubmit={handleSubmit}>
+          <label htmlFor="email">
+            Email:
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value)
+              }}
+            />
+          </label>
+          <label>
+            Password:
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value)
+              }}
+            />
+          </label>
+          <button className="btn" formAction="submit">
+            Sign Up
+          </button>
+          <div>
+            <p>Already have an account?</p>
+            <Link to="/login">Login</Link>
+          </div>
+        </form>
       </div>
-    </form>
+    </div>
   )
 }
 
