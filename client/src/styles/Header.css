@@ -2,8 +2,8 @@
   display: flex;
   padding: 1rem;
   background-color: var(--light-color);
-  overflow: scroll;
 }
+
 .navlink {
   text-decoration: none;
   color: var(--light-text);
@@ -16,12 +16,12 @@
 .navlink.active {
   border-right: 5px solid var(--accent-color);
 }
+.hidden {
+  display: none;
+}
 
-/* @media (min-width: 750px) {
-  .header {
-    display: flex;
-    padding: 1rem;
-    background-color: var(--light-color);
-    overflow: scroll;
+@media (max-width: 750px) {
+  .nav {
+    font-size: 1.25rem;
   }
-} */
+}

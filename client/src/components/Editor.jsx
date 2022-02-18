@@ -94,7 +94,7 @@ function Editor({ id }) {
   }
   // MAKE SURE TO UPDATE HTML TO BE SANITIZED //
   return (
-    <div className={isNotMobile ? 'editor editor-not-mobile' : 'editor'}>
+    <div className="editor">
       <form
         onSubmit={id ? handleSave : handleCreate}
         className="editor-fields "
