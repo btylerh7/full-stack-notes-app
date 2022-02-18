@@ -78,7 +78,7 @@ function Editor() {
     e.preventDefault()
     if (currentId && title && note) {
       const noteData = {
-        currentId,
+        id: currentId,
         title,
         note,
       }
