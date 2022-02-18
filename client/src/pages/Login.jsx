@@ -64,7 +64,9 @@ function Register() {
           </button>
           <div>
             <p>Don't have an account?</p>
-            <Link to="/register">Create an Account</Link>
+            <Link className="link" to="/register">
+              Create an Account
+            </Link>
           </div>
         </form>
       </div>

@@ -41,6 +41,16 @@ function Register() {
     <div className="login-outer">
       <div className="login-container">
         <form className="login-form " onSubmit={handleSubmit}>
+          <label htmlFor="name">
+            Name:
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => {
+                setName(e.target.value)
+              }}
+            />
+          </label>
           <label htmlFor="email">
             Email:
             <input
@@ -66,7 +76,9 @@ function Register() {
           </button>
           <div>
             <p>Already have an account?</p>
-            <Link to="/login">Login</Link>
+            <Link className="link" to="/login">
+              Login
+            </Link>
           </div>
         </form>
       </div>

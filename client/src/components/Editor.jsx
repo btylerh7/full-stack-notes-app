@@ -130,7 +130,7 @@ function Editor({ id }) {
       <div className="editor-preview ">
         <h2>{title}</h2>
         <div
-          class="preview"
+          className="preview"
           dangerouslySetInnerHTML={{ __html: marked(note) }}
         ></div>
       </div>
