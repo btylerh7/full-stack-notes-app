@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { marked } from 'marked'
 import { toast } from 'react-toastify'
+import { useMediaQuery } from 'react-responsive'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import {
@@ -26,6 +27,7 @@ function Editor({ id }) {
   const [note, setNote] = useState('')
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const isNotMobile = useMediaQuery({ minWidth: 768 })
 
   useEffect(() => {
     if (id) {
@@ -92,7 +94,7 @@ function Editor({ id }) {
   }
   // MAKE SURE TO UPDATE HTML TO BE SANITIZED //
   return (
-    <div className="editor">
+    <div className={isNotMobile ? 'editor editor-not-mobile' : 'editor'}>
       <form
         onSubmit={id ? handleSave : handleCreate}
         className="editor-fields "

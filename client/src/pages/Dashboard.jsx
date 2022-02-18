@@ -2,6 +2,7 @@ import Editor from '../components/Editor'
 import Header from '../components/Header'
 import '../styles/Dashboard.css'
 import { useState, useEffect } from 'react'
+import MediaQuery from 'react-responsive'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 function Dashboard() {
@@ -15,7 +16,10 @@ function Dashboard() {
 
   return (
     <div className="dashboard">
-      <Header />
+      <MediaQuery minWidth={768}>
+        <Header />
+      </MediaQuery>
+
       <Editor />
     </div>
   )
