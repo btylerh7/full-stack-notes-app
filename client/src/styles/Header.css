@@ -19,9 +19,3 @@
 .hidden {
   display: none;
 }
-
-@media (max-width: 750px) {
-  .nav {
-    font-size: 1.25rem;
-  }
-}

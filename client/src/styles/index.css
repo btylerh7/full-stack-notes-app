@@ -45,6 +45,9 @@ code {
 .pointer {
   cursor: pointer;
 }
+.text-right {
+  text-align: right;
+}
 /* Define Base Layouts */
 .container {
   margin-inline: auto;
@@ -72,4 +75,12 @@ code {
 .btn:hover {
   background-color: var(--medium-color);
   color: var(--light-text);
+}
+@media (max-width: 750px) {
+  body,
+  input,
+  textarea,
+  label {
+    font-size: 1.25rem;
+  }
 }

@@ -1,12 +1,12 @@
-import { FaPlusCircle, FaBars } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
+import { FaPlusCircle, FaBars, FaEdit, FaTabletAlt } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
 import { useMediaQuery } from 'react-responsive'
 import { useNavigate } from 'react-router-dom'
 import { logout } from '../features/auth/authSlice'
 import Notes from './Notes'
 import '../styles/Header.css'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { PreviewContext } from '../App'
 
 function Header({ id }) {
   const [clicked, setClicked] = useState(false)
@@ -14,6 +14,7 @@ function Header({ id }) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const isMedium = useMediaQuery({ minWidth: 768 })
+  const { previewMode, setPreviewMode } = useContext(PreviewContext)
 
   const handleClick = (e) => {
     dispatch(logout())
@@ -26,9 +27,16 @@ function Header({ id }) {
           <FaBars onClick={() => setClicked(clicked ? false : true)} />
         )}
         <p>Hello, {user && user.name}</p>
+        {!isMedium && previewMode ? (
+          <FaEdit onClick={() => setPreviewMode(previewMode ? false : true)} />
+        ) : (
+          <FaTabletAlt
+            onClick={() => setPreviewMode(previewMode ? false : true)}
+          />
+        )}
       </div>
       <br />
-      <div className={!clicked && 'hidden'}>
+      <div className={!isMedium && !clicked ? 'hidden' : undefined}>
         <div
           onClick={() => {
             navigate('/')

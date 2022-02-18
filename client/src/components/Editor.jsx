@@ -3,7 +3,8 @@ import { marked } from 'marked'
 import { toast } from 'react-toastify'
 import { useMediaQuery } from 'react-responsive'
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
+import { useEffect, useContext } from 'react'
+import { PreviewContext } from '../App'
 import {
   oneNote,
   updateNote,
@@ -13,27 +14,20 @@ import {
 import { useNavigate } from 'react-router-dom'
 
 function Editor({ id }) {
-  const {
-    notes,
-    isError,
-    isSuccess,
-    isLoaded,
-    isAdded,
-    isUpdated,
-    message,
-    currentNote,
-  } = useSelector((state) => state.notes)
+  const { previewMode } = useContext(PreviewContext)
+  const { notes, isError, isLoaded, isAdded, isUpdated, message, currentNote } =
+    useSelector((state) => state.notes)
   const [title, setTitle] = useState('')
   const [note, setNote] = useState('')
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const isNotMobile = useMediaQuery({ minWidth: 768 })
+  const isMedium = useMediaQuery({ minWidth: 768 })
 
   useEffect(() => {
     if (id) {
       dispatch(oneNote(id))
     }
-  }, [id])
+  }, [id, dispatch])
 
   useEffect(() => {
     if (isError) {
@@ -67,6 +61,8 @@ function Editor({ id }) {
     message,
     navigate,
     dispatch,
+    isLoaded,
+    title,
   ])
 
   const handleCreate = (e) => {
@@ -95,44 +91,56 @@ function Editor({ id }) {
   // MAKE SURE TO UPDATE HTML TO BE SANITIZED //
   return (
     <div className="editor">
-      <form
-        onSubmit={id ? handleSave : handleCreate}
-        className="editor-fields "
+      <div
+        className={
+          !isMedium ? (previewMode ? 'hidden' : 'edit-mode') : undefined
+        }
       >
-        <label htmlFor="title">
-          Title: <br />
-          <input
-            type="text"
-            placeholder="Enter a cool title..."
-            name="title"
-            id="title"
-            value={title}
-            onChange={(e) => {
-              setTitle(e.target.value)
-            }}
-          />
-        </label>
-        <label htmlFor="note">
-          Note Text:
-          <br />
-          <textarea
-            className="textarea"
-            value={note}
-            onChange={(e) => {
-              setNote(e.target.value)
-            }}
-          />
-        </label>
-        <button className="btn" formAction="submit">
-          {id ? 'Save Note' : 'Create Note'}
-        </button>
-      </form>
-      <div className="editor-preview ">
-        <h2>{title}</h2>
-        <div
-          className="preview"
-          dangerouslySetInnerHTML={{ __html: marked(note) }}
-        ></div>
+        <form
+          onSubmit={id ? handleSave : handleCreate}
+          className={'editor-fields'}
+        >
+          <label htmlFor="title">
+            Title: <br />
+            <input
+              type="text"
+              placeholder="Enter a cool title..."
+              name="title"
+              id="title"
+              value={title}
+              onChange={(e) => {
+                setTitle(e.target.value)
+              }}
+            />
+          </label>
+          <label htmlFor="note">
+            Note Text:
+            <br />
+            <textarea
+              className="textarea"
+              value={note}
+              onChange={(e) => {
+                setNote(e.target.value)
+              }}
+            />
+          </label>
+          <button className="btn" formAction="submit">
+            {id ? 'Save Note' : 'Create Note'}
+          </button>
+        </form>
+      </div>
+      <div
+        className={
+          !isMedium ? (previewMode ? 'preview-mode' : 'hidden') : undefined
+        }
+      >
+        <div className={'editor-preview'}>
+          <h2>{title}</h2>
+          <div
+            className="preview"
+            dangerouslySetInnerHTML={{ __html: marked(note) }}
+          ></div>
+        </div>
       </div>
     </div>
   )

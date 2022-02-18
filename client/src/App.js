@@ -5,14 +5,15 @@ import Register from './pages/Register'
 import Error from './pages/Error'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { useSelector } from 'react-redux'
-import { Navigate } from 'react-router-dom'
 import SingleNote from './pages/SingleNote'
+import { useState, createContext } from 'react'
+
+export const PreviewContext = createContext()
 
 function App() {
-  const { user } = useSelector((state) => state.auth)
+  const [previewMode, setPreviewMode] = useState(false)
   return (
-    <>
+    <PreviewContext.Provider value={{ previewMode, setPreviewMode }}>
       <Router>
         <div className="main container">
           <Routes>
@@ -25,7 +26,7 @@ function App() {
         </div>
       </Router>
       <ToastContainer />
-    </>
+    </PreviewContext.Provider>
   )
 }
 
