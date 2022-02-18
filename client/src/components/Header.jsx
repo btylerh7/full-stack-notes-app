@@ -6,7 +6,7 @@ import { logout } from '../features/auth/authSlice'
 import Notes from './Notes'
 import '../styles/Header.css'
 import { useState, useContext } from 'react'
-import { PreviewContext } from '../App'
+import { AppContext } from '../App'
 
 function Header({ id }) {
   const [clicked, setClicked] = useState(false)
@@ -14,7 +14,7 @@ function Header({ id }) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const isMedium = useMediaQuery({ minWidth: 768 })
-  const { previewMode, setPreviewMode } = useContext(PreviewContext)
+  const { previewMode, setPreviewMode } = useContext(AppContext)
 
   const handleClick = (e) => {
     dispatch(logout())

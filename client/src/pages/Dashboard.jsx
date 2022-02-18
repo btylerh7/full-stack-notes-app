@@ -16,9 +16,7 @@ function Dashboard() {
 
   return (
     <div className="dashboard">
-      {/* <MediaQuery minWidth={768}> */}
       <Header />
-      {/* </MediaQuery> */}
       <Editor />
     </div>
   )

@@ -1,10 +1,9 @@
 import { useState } from 'react'
 import { marked } from 'marked'
 import { toast } from 'react-toastify'
-import { useMediaQuery } from 'react-responsive'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useContext } from 'react'
-import { PreviewContext } from '../App'
+import { AppContext } from '../App'
 import {
   oneNote,
   updateNote,
@@ -13,21 +12,20 @@ import {
 } from '../features/notes/noteSlice'
 import { useNavigate } from 'react-router-dom'
 
-function Editor({ id }) {
-  const { previewMode } = useContext(PreviewContext)
+function Editor() {
+  const { previewMode, isMedium, currentId } = useContext(AppContext)
   const { notes, isError, isLoaded, isAdded, isUpdated, message, currentNote } =
     useSelector((state) => state.notes)
   const [title, setTitle] = useState('')
   const [note, setNote] = useState('')
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const isMedium = useMediaQuery({ minWidth: 768 })
 
   useEffect(() => {
-    if (id) {
-      dispatch(oneNote(id))
+    if (currentId) {
+      dispatch(oneNote(currentId))
     }
-  }, [id, dispatch])
+  }, [currentId, dispatch])
 
   useEffect(() => {
     if (isError) {
@@ -78,9 +76,9 @@ function Editor({ id }) {
   }
   const handleSave = (e) => {
     e.preventDefault()
-    if (id && title && note) {
+    if (currentId && title && note) {
       const noteData = {
-        id,
+        currentId,
         title,
         note,
       }
@@ -90,14 +88,14 @@ function Editor({ id }) {
   }
   // MAKE SURE TO UPDATE HTML TO BE SANITIZED //
   return (
-    <div className="editor">
+    <main className="editor">
       <div
         className={
           !isMedium ? (previewMode ? 'hidden' : 'edit-mode') : undefined
         }
       >
         <form
-          onSubmit={id ? handleSave : handleCreate}
+          onSubmit={currentId ? handleSave : handleCreate}
           className={'editor-fields'}
         >
           <label htmlFor="title">
@@ -125,7 +123,7 @@ function Editor({ id }) {
             />
           </label>
           <button className="btn" formAction="submit">
-            {id ? 'Save Note' : 'Create Note'}
+            {currentId ? 'Save Note' : 'Create Note'}
           </button>
         </form>
       </div>
@@ -142,7 +140,7 @@ function Editor({ id }) {
           ></div>
         </div>
       </div>
-    </div>
+    </main>
   )
 }
 

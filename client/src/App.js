@@ -6,14 +6,19 @@ import Error from './pages/Error'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import SingleNote from './pages/SingleNote'
+import { useMediaQuery } from 'react-responsive'
 import { useState, createContext } from 'react'
 
-export const PreviewContext = createContext()
+export const AppContext = createContext()
 
 function App() {
   const [previewMode, setPreviewMode] = useState(false)
+  const isMedium = useMediaQuery({ minWidth: 768 })
+  const [currentId, setCurrentId] = useState(null)
   return (
-    <PreviewContext.Provider value={{ previewMode, setPreviewMode }}>
+    <AppContext.Provider
+      value={{ previewMode, setPreviewMode, isMedium, currentId, setCurrentId }}
+    >
       <Router>
         <div className="main container">
           <Routes>
@@ -26,7 +31,7 @@ function App() {
         </div>
       </Router>
       <ToastContainer />
-    </PreviewContext.Provider>
+    </AppContext.Provider>
   )
 }
 
