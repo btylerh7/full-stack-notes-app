@@ -9,4 +9,5 @@ This application was created to demonstrate my abilities in using these four pro
 - Fully responsive mobile layout that increases in complexity as the size of the window increases
 - The ability to persist state after page reload by utilizing local storage
 
-A live demo of the app can is hosted on [Heroku.](https://baker-notes.herokuapp.com/)
+A live demo of the app is hosted on [Heroku.](https://baker-notes.herokuapp.com/)
+**Note: Because Heroku has dropped their free plan, this project is no longer running. I will be moving it to a new platform soon.**
