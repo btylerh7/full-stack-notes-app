@@ -10,7 +10,7 @@
     "server": "nodemon backend/server.js",
     "start": "node backend/server.js",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
-    "render-deploy": "NPM_CONFIG_PRODUCTION= false yarn install && yarn install --prefix client && yarn run build --prefix client"
+    "render-deploy": "NPM_CONFIG_PRODUCTION=false npm install && npm install --prefix client && npm run build --prefix client"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
